@@ -1,0 +1,315 @@
+<!doctype html>
+<html lang="ms" class="h-full">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pendaftaran Fun Run SKPJ 2025</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f3f4f6; }
+        .card-custom { background: white; border-radius: 15px; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06); margin-bottom: 20px; border: 1px solid #e5e7eb; overflow: hidden; }
+        .header-custom { background: linear-gradient(135deg, #059669 0%, #047857 100%); color: white; padding: 2rem 1rem; text-align: center; }
+        .section-header { background-color: #ecfdf5; color: #065f46; padding: 15px 20px; font-weight: 700; border-bottom: 1px solid #d1fae5; display: flex; align-items: center; }
+        .section-header i { margin-right: 10px; }
+        .p-body { padding: 20px; }
+        .radio-box { border: 2px solid #e5e7eb; border-radius: 10px; padding: 15px; cursor: pointer; transition: all 0.2s; position: relative; }
+        .radio-box:hover { border-color: #10b981; background-color: #f0fdf4; }
+        .radio-box.selected { border-color: #059669; background-color: #ecfdf5; box-shadow: 0 0 0 2px #059669; }
+        .radio-box input { display: none; }
+        .check-icon { position: absolute; top: 10px; right: 10px; color: #059669; opacity: 0; transform: scale(0); transition: all 0.2s; }
+        .radio-box.selected .check-icon { opacity: 1; transform: scale(1); }
+        .hidden { display: none !important; }
+        .fade-in { animation: fadeIn 0.5s ease-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        .input-field { width: 100%; padding: 12px; border: 1px solid #d1d5db; border-radius: 8px; outline: none; transition: border-color 0.2s; }
+        .input-field:focus { border-color: #059669; ring: 2px solid #059669; }
+    </style>
+</head>
+<body class="h-full">
+
+    <div class="header-custom shadow-lg">
+        <div class="flex flex-col items-center justify-center">
+            <div class="bg-white p-2 rounded-lg mb-4 shadow-md">
+                <img src="LOGO SKPJ.png" alt="Logo SKPJ" class="h-20 w-auto md:h-24" onerror="this.style.display='none'">
+            </div>
+            
+            <h1 class="text-3xl md:text-4xl font-extrabold mb-2">MERENTAS DESA @ FUN RUN SKPJ</h1>
+            <p class="text-lg opacity-90">PERINGKAT KEBANGSAAN | BACK TO SCHOOL 2026</p>
+        </div>
+    </div>
+
+    <div class="container mx-auto px-4 py-8 max-w-3xl">
+        <form id="funRunForm" onsubmit="handleFormSubmit(event)">
+            
+            <div class="card-custom fade-in">
+                <div class="section-header">
+                    <i class="fas fa-user-graduate"></i> BAHAGIAN A: MAKLUMAT PESERTA
+                </div>
+                <div class="p-body space-y-4">
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-700 mb-1">1. Nama Penuh Murid (Huruf Besar)</label>
+                        <input type="text" name="nama" id="nama" required class="input-field uppercase" placeholder="CONTOH: AHMAD ALI BIN ABU">
+                    </div>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-sm font-semibold text-gray-700 mb-1">2. Kelas (2025)</label>
+                            <select name="kelas" id="kelas" required class="input-field bg-white">
+                                <option value="">- Pilih -</option>
+                                <optgroup label="Tahun 3"><option>3B</option><option>3N</option><option>3P</option><option>3Z</option></optgroup>
+                                <optgroup label="Tahun 4"><option>4B</option><option>4N</option><option>4P</option><option>4Z</option></optgroup>
+                                <optgroup label="Tahun 5"><option>5B</option><option>5N</option><option>5P</option></optgroup>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-semibold text-gray-700 mb-1">3. Jantina</label>
+                            <select name="jantina" id="jantina" required class="input-field bg-white">
+                                <option value="">- Pilih -</option>
+                                <option>Lelaki</option>
+                                <option>Perempuan</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-700 mb-1">No. Telefon Penjaga</label>
+                        <input type="tel" name="phone" id="phone" required class="input-field" placeholder="0123456789">
+                    </div>
+                </div>
+            </div>
+
+            <div class="card-custom fade-in">
+                <div class="section-header">
+                    <i class="fas fa-box-open"></i> BAHAGIAN B: PILIHAN PAKEJ
+                </div>
+                <div class="p-body">
+                    <div class="space-y-3">
+                        <label class="radio-box flex items-start" onclick="selectPackage('PAKEJ 1', this)">
+                            <input type="radio" name="pakej" value="PAKEJ 1" required>
+                            <i class="fas fa-check-circle check-icon text-2xl"></i>
+                            <div class="flex-1">
+                                <div class="flex justify-between items-center mb-1">
+                                    <span class="font-bold text-gray-900 text-lg">PAKEJ 1 (BERBAYAR)</span>
+                                    <span class="bg-emerald-100 text-emerald-800 text-xs font-bold px-2 py-1 rounded">RM 30.00</span>
+                                </div>
+                                <ul class="text-sm text-gray-600 list-disc list-inside">
+                                    <li>Baju T-Shirt, Medal, Sijil, Cabutan Bertuah</li>
+                                </ul>
+                            </div>
+                        </label>
+
+                        <label class="radio-box flex items-start" onclick="selectPackage('PAKEJ 2', this)">
+                            <input type="radio" name="pakej" value="PAKEJ 2">
+                            <i class="fas fa-check-circle check-icon text-2xl"></i>
+                            <div class="flex-1">
+                                <div class="flex justify-between items-center mb-1">
+                                    <span class="font-bold text-gray-900 text-lg">PAKEJ 2 (PERCUMA)</span>
+                                    <span class="bg-gray-100 text-gray-600 text-xs font-bold px-2 py-1 rounded">RM 0.00</span>
+                                </div>
+                                <p class="text-sm text-gray-600">Penyertaan larian & sijil sahaja.</p>
+                            </div>
+                        </label>
+                    </div>
+
+                    <div id="payment_method_container" class="mt-6 pt-6 border-t border-gray-200 hidden fade-in">
+                        <p class="font-bold text-gray-800 mb-3 text-center">SILA PILIH KAEDAH PEMBAYARAN:</p>
+                        <div class="grid grid-cols-2 gap-4">
+                            <label class="radio-box text-center" onclick="selectPaymentMethod('Tunai', this)">
+                                <input type="radio" name="kaedah_bayaran" value="Tunai">
+                                <i class="fas fa-check-circle check-icon"></i>
+                                <div class="text-2xl mb-1">💵</div>
+                                <div class="font-bold">TUNAI</div>
+                                <div class="text-xs text-gray-500">Bayar kepada guru</div>
+                            </label>
+                            <label class="radio-box text-center" onclick="selectPaymentMethod('Online', this)">
+                                <input type="radio" name="kaedah_bayaran" value="Online">
+                                <i class="fas fa-check-circle check-icon"></i>
+                                <div class="text-2xl mb-1">📱</div>
+                                <div class="font-bold">ONLINE</div>
+                                <div class="text-xs text-gray-500">Transfer & Upload Resit</div>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="section_c" class="card-custom hidden fade-in">
+                <div class="section-header">
+                    <i class="fas fa-tshirt"></i> BAHAGIAN C: PILIHAN SAIZ BAJU
+                </div>
+                <div class="p-body">
+                    <div class="bg-blue-50 p-3 rounded-lg border border-blue-200 mb-4">
+                        <p class="text-sm text-blue-800 font-bold mb-2 flex items-center">
+                            <i class="fas fa-ruler-combined mr-2"></i> Panduan Saiz (Size Chart)
+                        </p>
+                        <img src="SAIZ BAJU.jpg" alt="Carta Saiz" class="w-full rounded border border-gray-300" onerror="this.style.display='none'; alert('Gambar SAIZ BAJU.jpg tidak dijumpai dalam folder.');">
+                    </div>
+
+                    <label class="block text-sm font-semibold text-gray-700 mb-2">Sila Pilih Saiz</label>
+                    <select name="saiz" id="saiz" class="input-field bg-white">
+                        <option value="">-- Pilih Saiz --</option>
+                        <option value="3XS">3XS</option>
+                        <option value="2XS">2XS</option>
+                        <option value="XS">XS</option>
+                        <option value="S">S</option>
+                        <option value="M">M</option>
+                        <option value="L">L</option>
+                        <option value="XL">XL</option>
+                        <option value="2XL">2XL</option>
+                        <option value="3XL">3XL</option>
+                        <option value="4XL">4XL</option>
+                        <option value="5XL">5XL</option>
+                        <option value="6XL">6XL</option>
+                        <option value="7XL">7XL</option>
+                        <option value="8XL">8XL</option>
+                    </select>
+                </div>
+            </div>
+
+            <div id="section_d" class="card-custom hidden fade-in">
+                <div class="section-header bg-amber-50 text-amber-800 border-amber-200">
+                    <i class="fas fa-file-invoice-dollar"></i> BAHAGIAN D: BUKTI PEMBAYARAN
+                </div>
+                <div class="p-body">
+                    <div class="bg-amber-100 p-4 rounded-lg mb-4 text-center border border-amber-300">
+                        <p class="font-bold text-amber-900 mb-2">BSN: 1419 8290 0005 3962</p>
+                        <p class="text-sm text-amber-800 mb-3">MAREYANA BINTI MUHAMAD</p>
+                        
+                        <div class="flex justify-center">
+                            <img src="QR PN MAREYANA BSN.jpeg" alt="QR Code Bank" class="w-32 md:w-40 rounded shadow-sm border-2 border-white" onerror="this.style.display='none'">
+                        </div>
+                        <p class="text-xs text-amber-700 mt-2">Imbas untuk bayar</p>
+                    </div>
+                    
+                    <label class="block text-sm font-semibold text-gray-700 mb-2">Upload Resit Transfer</label>
+                    <input type="file" id="resit" accept="image/*,application/pdf" class="block w-full text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-emerald-50 file:text-emerald-700 hover:file:bg-emerald-100" onchange="previewFile()">
+                    <p id="file-name" class="mt-2 text-xs text-emerald-600 font-bold"></p>
+                </div>
+            </div>
+
+            <button type="submit" id="submitBtn" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-4 rounded-xl shadow-lg transition transform hover:-translate-y-1">
+                HANTAR PENDAFTARAN <i class="fas fa-paper-plane ml-2"></i>
+            </button>
+
+        </form>
+    </div>
+
+    <script>
+        // URL SCRIPT TERBARU
+        const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxGVbypI_jSRpYGM4_JDJGh_MfCNNGcgF78AtVSYp7f6Odm7zz86E3eYk8Hsd2iBtST/exec";
+
+        let currentPackage = null;
+        let currentMethod = null;
+
+        function selectPackage(pkg, element) {
+            currentPackage = pkg;
+            
+            document.querySelectorAll('input[name="pakej"]').forEach(el => el.parentElement.classList.remove('selected'));
+            element.classList.add('selected');
+
+            // Reset Sub-selections
+            document.querySelectorAll('input[name="kaedah_bayaran"]').forEach(el => el.parentElement.classList.remove('selected'));
+            document.querySelectorAll('input[name="kaedah_bayaran"]').forEach(el => el.checked = false);
+            currentMethod = null;
+
+            updateVisibility();
+        }
+
+        function selectPaymentMethod(method, element) {
+            currentMethod = method;
+
+            document.querySelectorAll('input[name="kaedah_bayaran"]').forEach(el => el.parentElement.classList.remove('selected'));
+            element.classList.add('selected');
+
+            updateVisibility();
+        }
+
+        function updateVisibility() {
+            const payContainer = document.getElementById('payment_method_container');
+            const secC = document.getElementById('section_c');
+            const secD = document.getElementById('section_d');
+            const saizInput = document.getElementById('saiz');
+            const resitInput = document.getElementById('resit');
+
+            // Hide all first
+            payContainer.classList.add('hidden');
+            secC.classList.add('hidden');
+            secD.classList.add('hidden');
+
+            // Reset Requirements
+            saizInput.required = false;
+            resitInput.required = false;
+
+            if (currentPackage === 'PAKEJ 1') {
+                payContainer.classList.remove('hidden');
+
+                if (currentMethod === 'Tunai') {
+                    secC.classList.remove('hidden');
+                    saizInput.required = true;
+                } 
+                else if (currentMethod === 'Online') {
+                    secC.classList.remove('hidden');
+                    secD.classList.remove('hidden');
+                    saizInput.required = true;
+                    if(!resitInput.dataset.data) resitInput.required = true;
+                }
+            }
+        }
+
+        function previewFile() {
+            const file = document.getElementById('resit').files[0];
+            if(file){
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const input = document.getElementById('resit');
+                    input.dataset.data = e.target.result;
+                    input.dataset.name = file.name;
+                    input.dataset.type = file.type;
+                    document.getElementById('file-name').textContent = "File: " + file.name;
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+
+        function handleFormSubmit(e) {
+            e.preventDefault();
+            const btn = document.getElementById('submitBtn');
+            const originalText = btn.innerHTML;
+            
+            if (!currentPackage) { alert("Sila pilih Pakej."); return; }
+            if (currentPackage === 'PAKEJ 1' && !currentMethod) { alert("Sila pilih kaedah bayaran."); return; }
+
+            btn.disabled = true;
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Memproses...';
+
+            const formData = {
+                nama_murid: document.getElementById('nama').value.toUpperCase(),
+                kelas: document.getElementById('kelas').value,
+                jantina: document.getElementById('jantina').value,
+                no_telefon: document.getElementById('phone').value,
+                pakej: currentPackage,
+                kaedah: (currentPackage === 'PAKEJ 1') ? currentMethod : 'Percuma',
+                saiz_baju: (currentPackage === 'PAKEJ 1') ? document.getElementById('saiz').value : '-',
+                resit_data: (currentPackage === 'PAKEJ 1' && currentMethod === 'Online') ? document.getElementById('resit').dataset.data : '',
+                resit_name: (currentPackage === 'PAKEJ 1' && currentMethod === 'Online') ? document.getElementById('resit').dataset.name : ''
+            };
+
+            fetch(SCRIPT_URL, {
+                method: 'POST',
+                mode: 'no-cors',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(formData)
+            })
+            .then(() => {
+                alert("Pendaftaran Berjaya! 🎉");
+                location.reload();
+            })
+            .catch(err => {
+                console.error(err);
+                alert("Ralat. Sila cuba lagi.");
+                btn.disabled = false;
+                btn.innerHTML = originalText;
+            });
+        }
+    </script>
+</body>
+</html>
